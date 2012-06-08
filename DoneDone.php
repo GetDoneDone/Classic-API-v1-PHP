@@ -6,46 +6,32 @@
  * @see http://www.getdonedone.com/api
  *
  * @author Daniel Chen <daniel.chen@wearemammoth.com>
+ *	   Mustafa shabib <mustafa.shabib@wearemammoth.com>
  */
 class IssueTracker {
     protected $baseURL;
     protected $username;
-    protected $password;
     protected $token;
 
     /**
      * Default constructor
      *
      * @param string $domain - company's DoneDone domain
-     * @param string $token - the project API token
+     * @param string $token - the project API token - optional if password is specified, will be used before password if both are specified
      * @param string $username - DoneDone username
-     * @param string $password - DoneDone password
+     * @param string $password - DoneDone password - optional if API token is specified
      */
     function __construct($domain, $token, $username, $password) {
         $this->baseURL = "https://{$domain}.mydonedone.com/IssueTracker/API/";
-        $this->token = $token;
-        $this->username = $username;
-        $this->password = $password;
+        if(empty($token)){
+		$this->token = $password;
+		}else{
+		$this->token = $token;
+		}
+		$this->username = $username;
     }
 
-    /**
-     * Calculate signature for each request
-     *
-     * @param string $url - DoneDone API url
-     * @param array $data - optional POST form data
-     *
-     * @return string
-     */
-    protected function _calculateSignature($url, array $data = null) {
-	if ($data) {
-	    ksort($data);
-	    foreach ($data as $key => $value) {
-		$url .=  $key . $value;
-	    }
-        }
-        return base64_encode(hash_hmac('sha1', $url, $this->token, true));
-    }
-
+ 
     /**
      * Perform generic API calling
      *
@@ -65,9 +51,8 @@ class IssueTracker {
 	    curl_setopt($curl, CURLOPT_HEADER, false);
 	    curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 	    curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC);
-	    curl_setopt($curl, CURLOPT_USERPWD, $this->username . ':' . $this->password);
-	    curl_setopt($curl, CURLOPT_HTTPHEADER, array(
-		'X-DoneDone-Signature: ' . $this->_calculateSignature($url, $data)));
+	    curl_setopt($curl, CURLOPT_USERPWD, $this->username . ':' . $this->token);
+	   
 	    if ($data || $attachments) {
 		if ($update) {
 		    curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'PUT');
