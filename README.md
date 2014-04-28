@@ -30,7 +30,7 @@ $issueTracker = new IssueTracker($domain, $token, $username, $password);
  *
  * The examples below will get all your projects with the API enabled.
  */
-$issueTracker->API("GetProjects");
+$issueTracker->API("Projects");
 // or
 $issueTracker->getProjects();
 ```
