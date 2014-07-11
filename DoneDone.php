@@ -124,12 +124,12 @@ class IssueTracker {
      * Check if an issue exists
      *
      * @param int $projectID: project id
-     * @param string $title: required $title.
+     * @param int $orderNumber: issue order number.
      *
      * @return string - the JSON string returned from server
      */
-    public function doesIssueExist($projectID, $issueID) {
-	return $this->API("DoesIssueExist/{$projectID}/{$issueID}");
+    public function doesIssueExist($projectID, $orderNumber) {
+	return $this->API("DoesIssueExist/{$projectID}/{$orderNumber}");
     }
 
     /**
@@ -139,12 +139,12 @@ class IssueTracker {
      * as well as ALL statuses back from the server
      *
      * @param int $projectID: project id
-     * @param string $title: required $title.
+     * @param int $orderNumber: issue order number.
      *
      * @return string - the JSON string returned from server
      */
-    public function getPotentialStatusesForIssue($projectID, $issueID) {
-	return $this->API("PotentialStatusesForIssue/{$projectID}/{$issueID}");
+    public function getPotentialStatusesForIssue($projectID, $orderNumber) {
+	return $this->API("PotentialStatusesForIssue/{$projectID}/{$orderNumber}");
     }
 
     /**
@@ -154,24 +154,24 @@ class IssueTracker {
      * since it will return a 404 if the issue does not exist
      *
      * @param int $projectID: project id
-     * @param string $title: required $title.
+     * @param int $orderNumber: issue order number.
      *
      * @return string - the JSON string returned from server
      */
-    public function getIssueDetails($projectID, $issueID) {
-	return $this->API("Issue/{$projectID}/{$issueID}");
+    public function getIssueDetails($projectID, $orderNumber) {
+	return $this->API("Issue/{$projectID}/{$orderNumber}");
     }
 
     /**
      * Get a list of people that can be assigend to an issue
      *
      * @param int $projectID: project id
-     * @param string $title: required $title.
+     * @param int $orderNumber: issue order number.
      *
      * @return string - the JSON string returned from server
      */
-    public function getPeopleForIssueAssignment($projectID, $issueID) {
-	return $this->API("PeopleForIssueAssignment/{$projectID}/{$issueID}");
+    public function getPeopleForIssueAssignment($projectID, $orderNumber) {
+	return $this->API("PeopleForIssueAssignment/{$projectID}/{$orderNumber}");
     }
 
     /**
