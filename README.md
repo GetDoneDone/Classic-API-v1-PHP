@@ -1,4 +1,4 @@
-# DoneDone API PHP Client Library
+# DoneDone Classic API v1 PHP Wrapper
 
 ## REQUIREMENT
 PHP version 5.* (developed against 5.3.9)
